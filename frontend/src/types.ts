@@ -62,3 +62,58 @@ export interface Politician {
   votingRecordEarlier?: Record<string, { votes: number; participation_pct: number; group_agreement_pct: number; from: string; to: string }>;
   recentVotes: BillVote[];
 }
+
+export type EliteSphere = 'POL' | 'ECO' | 'ADMIN' | 'ACAD';
+
+export interface EliteMembership {
+  id: string;
+  organisation: string;
+  category:
+    | 'Politik'
+    | 'Wirtschaft / VR'
+    | 'Wirtschaftsverband'
+    | 'Verwaltung / Kommission'
+    | 'Wissenschaft / Hochschule'
+    | 'Soziabilität / Club / Verbindung'
+    | 'Militär';
+  sphere: EliteSphere;
+  role: string;
+  period: string;
+  obelisEntityId?: string;
+}
+
+export interface ElitePerson {
+  id: string;
+  obelisId: number;
+  obelisUrl: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  birthYear: number;
+  deathYear: number | null;
+  gender: 'M' | 'F';
+  primarySphere: EliteSphere;
+  spheres: EliteSphere[];
+  cohortYears: number[];
+  primaryRole: string;
+  primaryInstitution: string;
+  canton: string;
+  cantonName: string;
+  birthPlace: string;
+  citizenship: string;
+  passports: string[];
+  religion: string;
+  party: string;
+  partyAbbr: string;
+  partyColor: string;
+  militaryRank: string;
+  university: string;
+  studyField: string;
+  mandatesCount: number;
+  photo?: string;
+  politicianId?: string;
+  overallScore?: number | null;
+  bioSummary: string;
+  memberships: EliteMembership[];
+}
+

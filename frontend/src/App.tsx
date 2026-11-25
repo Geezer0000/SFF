@@ -6,13 +6,14 @@ import { DetailView } from './components/DetailView';
 import { SwitzerlandMap } from './components/SwitzerlandMap';
 import { AboutView } from './components/AboutView';
 import { SwitzerlandInNumbersView } from './components/SwitzerlandInNumbersView';
+import { ElitesView } from './components/ElitesView';
 import { Search, SlidersHorizontal, LayoutGrid, Map as MapIcon, X } from 'lucide-react';
 import './App.css';
 
 export function App() {
   const [politicians] = useState<Politician[]>(politiciansData as unknown as Politician[]);
   const [selectedPolitician, setSelectedPolitician] = useState<Politician | null>(null);
-  const [currentPage, setCurrentPage] = useState<'SCORECARD' | 'ZAHLEN' | 'ABOUT'>('SCORECARD');
+  const [currentPage, setCurrentPage] = useState<'SCORECARD' | 'ZAHLEN' | 'ELITEN' | 'ABOUT'>('SCORECARD');
   const [viewMode, setViewMode] = useState<'LIST' | 'MAP'>('LIST');
   const [showFilters, setShowFilters] = useState<boolean>(true);
 
@@ -196,6 +197,12 @@ export function App() {
               ABOUT
             </button>
             <button
+              onClick={() => { setSelectedPolitician(null); setCurrentPage('ELITEN'); }}
+              className={`nav-link-btn ${currentPage === 'ELITEN' ? 'active' : ''}`}
+            >
+              ELITEN
+            </button>
+            <button
               onClick={() => { setSelectedPolitician(null); setCurrentPage('ZAHLEN'); }}
               className={`nav-link-btn ${currentPage === 'ZAHLEN' ? 'active' : ''}`}
             >
@@ -221,6 +228,14 @@ export function App() {
       <main className="main-content">
         {currentPage === 'ABOUT' ? (
           <AboutView onGoToScorecard={() => setCurrentPage('SCORECARD')} />
+        ) : currentPage === 'ELITEN' ? (
+          <ElitesView
+            politicians={politicians}
+            onSelectPolitician={(p) => {
+              setSelectedPolitician(p);
+              setCurrentPage('SCORECARD');
+            }}
+          />
         ) : currentPage === 'ZAHLEN' ? (
           <SwitzerlandInNumbersView
             politicians={politicians}
