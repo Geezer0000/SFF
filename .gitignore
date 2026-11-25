@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Build output
+dist/
+frontend/dist/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Windows shortcuts & OS files
+*.lnk
+*.url
+.DS_Store
+Thumbs.db
+
+# Nested empty repo clone
+/SFF/
+
+# Environment & Logs
+.env
+.env.local
+*.log
